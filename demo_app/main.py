@@ -3,7 +3,7 @@
 """
 
 import wx
-from .views import MainFrame
+from views import MainFrame
 
 
 class MyApp(wx.App):
