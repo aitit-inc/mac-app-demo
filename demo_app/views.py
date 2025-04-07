@@ -10,7 +10,7 @@ class MainFrame(wx.Frame):
     """メインウィンドウ"""
 
     def __init__(self, parent=None, title="デモアプリ by SurpassOne"):
-        super().__init__(parent, title=title, size=(400, 300))
+        super().__init__(parent, title=title, size=(1200, 800))
         self.panel = wx.Panel(self)
         self.memo_panel = None
         self.color_panel = None  # カラーパネル用
@@ -31,7 +31,12 @@ class MainFrame(wx.Frame):
         memo_item = demo_menu.Append(wx.ID_ANY, "メモアプリ")
         color_picker_item = demo_menu.Append(wx.ID_ANY, "カラーピッカー")
         ui_library_item = demo_menu.Append(wx.ID_ANY, "UIライブラリ")  # 追加
+
+        # Bind the menu items to their event handlers
+        self.Bind(wx.EVT_MENU, self.on_open_memo, memo_item)
+        self.Bind(wx.EVT_MENU, self.on_open_color_picker, color_picker_item)
         self.Bind(wx.EVT_MENU, self.on_open_ui_library, ui_library_item)
+
         menu_bar.Append(demo_menu, "デモメニュー")
 
         # ファイル操作メニュー
