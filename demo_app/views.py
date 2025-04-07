@@ -30,8 +30,8 @@ class MainFrame(wx.Frame):
         demo_menu = wx.Menu()
         memo_item = demo_menu.Append(wx.ID_ANY, "メモアプリ")
         color_picker_item = demo_menu.Append(wx.ID_ANY, "カラーピッカー")
-        self.Bind(wx.EVT_MENU, self.on_open_memo, memo_item)
-        self.Bind(wx.EVT_MENU, self.on_open_color_picker, color_picker_item)
+        ui_library_item = demo_menu.Append(wx.ID_ANY, "UIライブラリ")  # 追加
+        self.Bind(wx.EVT_MENU, self.on_open_ui_library, ui_library_item)
         menu_bar.Append(demo_menu, "デモメニュー")
 
         # ファイル操作メニュー
@@ -68,6 +68,21 @@ class MainFrame(wx.Frame):
             self.memo_panel.Hide()
         self.panel.Hide()
         self.color_panel.Show()
+        self.Layout()
+
+    def on_open_ui_library(self, event):
+        """UIライブラリを開く"""
+        from ui_library import UILibraryPanel
+
+        if not hasattr(self, "ui_library_panel") or self.ui_library_panel is None:
+            self.ui_library_panel = UILibraryPanel(self)
+            self.sizer.Add(self.ui_library_panel, 1, wx.EXPAND)
+        if self.memo_panel:
+            self.memo_panel.Hide()
+        if self.color_panel:
+            self.color_panel.Hide()
+        self.panel.Hide()
+        self.ui_library_panel.Show()
         self.Layout()
 
     def on_new_file(self, event):
